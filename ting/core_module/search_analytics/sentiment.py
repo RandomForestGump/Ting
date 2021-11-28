@@ -22,7 +22,7 @@ class OpinionMiner:
         self.h = collections.defaultdict(lambda: [0, 0])
 
     def get_pos_neg(self,tweets):
-
+        #Covid tweet detector
         pos = set()
         neg = set()
         for tweet in tweets:
