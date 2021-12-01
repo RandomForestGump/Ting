@@ -50,14 +50,14 @@ class DynamicAnalyzer:
 
     def get_xtreme_tweets(self):
         '''
-
+        Retrieve most likely and then get extreme tweeets
         :return:
         '''
 
 
     def anti_vaxxer(self):
         '''
-
+        #Top antivaccine worst sentiment tweets
         :return: Top antivax tweet with negative sentiment
         '''
 
