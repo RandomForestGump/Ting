@@ -39,6 +39,7 @@ class DynamicAnalyzer:
         :return:
         '''
 
+
         # mask is the image used to reshape the cloud
         # mask = np.array(Image.open('./images/syringe44_.jpeg'))
         # word_cloud = WordCloud(collocations=False, background_color='white',
@@ -50,9 +51,12 @@ class DynamicAnalyzer:
 
     def get_xtreme_tweets(self):
         '''
-        Retrieve most likely and then get extreme tweeets
+        Retrieve most likely and then get extreme tweets
         :return:
         '''
+
+        for t in self.tweet:
+            #Sort on Sentiment and retrieve head(2) and tail(2)
 
 
     def anti_vaxxer(self):
@@ -60,5 +64,7 @@ class DynamicAnalyzer:
         #Top antivaccine worst sentiment tweets
         :return: Top antivax tweet with negative sentiment
         '''
+
+
 
 
