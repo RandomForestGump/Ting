@@ -19,52 +19,57 @@ class OverallAnalyzer:
         self.analyser = SentimentIntensityAnalyzer()
         self.vaccine_brands = vaccine_brands
 
-
     def assign_sentiment(self):
+        abc = []
+
         for tweet in self.all_tweets:
-            tweet_text = tweet.text
 
-            if tweet.lang == 'es':
+            tweet_text = tweet['tweet_text']
 
-                tweet['sentiment'] = sentiment_analysis.SentimentAnalysisSpanish()
+            if tweet['tweet_lang'] == 'es':
 
-            elif tweet.lang == 'hi':
+                #                 tweet['sentiment'] = sentiment_analysis.SentimentAnalysisSpanish()
+                translation = translator1.translate(tweet_text)
+
+                tweet['sentiment'] = self.analyser.polarity_scores(translation)['pos']
+
+            elif tweet['tweet_lang'] == 'hi':
+
                 translation = translator.translate(tweet_text)
-                tweet['sentiment'] = self.analyser.polarity_scores(translation)
+
+                tweet['sentiment'] = self.analyser.polarity_scores(translation)['pos']
 
             else:
                 tweet['sentiment'] = self.analyser.polarity_scores(tweet_text)
+            abc.append(tweet)
 
+        self.all_tweets = abc
 
-    def assign_class(self):
-
-        #check if tweet covid or non covid
-        #Check
+    def assign_class(self, thresh):
 
         for tweet in self.all_tweets:
-            tweet['is_covid'] , tweet['is_vaccine'], tweet['is_antivaccine'] = False, False, False
-            tweet_text = tweet.text
+            tweet['is_covid'], tweet['is_vaccine'], tweet['is_antivaccine'] = False, False, False
+            tweet_text = tweet['tweet_text']
 
             for word in tweet_text.split(' '):
 
-                if not tweet['is_covid'] :
+                if not tweet['is_covid']:
 
                     for key in self.covid_keywords:
-                        if fuzz.ratio(word, key) > 70:
+                        if fuzz.ratio(word, key) > thresh:
                             tweet['is_covid'] = True
                             break
 
-                if not tweet['is_vaccine'] :
+                if not tweet['is_vaccine']:
                     for key in self.vaccine_keywords:
-                        if fuzz.ratio(word, key) > 70:
+                        if fuzz.ratio(word, key) > thresh:
                             tweet['is_vaccine'] = True
                             break
                 if not tweet['is_antivaccine']:
                     for key in self.antivaccine_keywords:
-                        if fuzz.ratio(word, key) > 70:
+                        if fuzz.ratio(word, key) > thresh:
                             tweet['is_antivaccine'] = True
                             break
-
 
     def population_sentiment_analysis(self):
 

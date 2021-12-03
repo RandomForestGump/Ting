@@ -233,7 +233,7 @@ covid_keywords = [
         "incubation period"
     ]
 
-anti_vaccine = []
+antivaccine_keywords = ['abolishbigpharma','noforcedflushots','antivaccine','NoForcedVaccines','ArrestBillGates','notomandatoryvaccines','betweenmeandmydoctor','NoVaccine','bigpharmafia','NoVaccineForMe','bigpharmakills','novaccinemandates','BillGatesBioTerrorist','parentalrights','billgatesevil','parentsoverpharma','BillGatesIsEvil','saynotovaccines','billgatesisnotadoctor','stopmandatoryvaccination','billgatesvaccine','syringeslaughter','cdcfraud','unvaccinated','cdctruth','v4vglobaldemo','cdcwhistleblower','vaccinationchoice','covidvaccineispoison','VaccineAgenda','depopulation','vaccinedamage','DoctorsSpeakUp','vaccinefailure','educateb4uvax','vaccinefraud','exposebillgates','vaccineharm','forcedvaccines','vaccineinjuries','Fuckvaccines','vaccineinjury','idonotconsent','VaccinesAreNotTheAnswer','informedconsent','vaccinesarepoison','learntherisk','vaccinescause','medicalfreedom','vaccineskill','medicalfreedomofchoice','vaxxed','momsofunvaccinatedchildren','yeht','mybodymychoice']
 vaccine_keywords =  [
         "anticuerpos",
         "vaccine mandate",
