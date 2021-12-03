@@ -4,7 +4,8 @@ import nltk
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import spacy
 nlp = spacy.load("en_core_web_sm")
-from textblob import TextBlob
+
+#python -m spacy download en_core_web_sm
 
 import collections
 
