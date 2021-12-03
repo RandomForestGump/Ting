@@ -3,6 +3,10 @@
 from fuzzywuzzy import fuzz
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from keyword_data import covid_keywords, vaccine_keywords, antivaccine_keywords, vaccine_brands
+from translate import Translator
+translator = Translator(from_lang="hindi",to_lang="english")
+
+from sentiment_analysis_spanish import sentiment_analysis
 
 class OverallAnalyzer:
 
@@ -19,7 +23,17 @@ class OverallAnalyzer:
     def assign_sentiment(self):
         for tweet in self.all_tweets:
             tweet_text = tweet.text
-            tweet['sentiment'] = self.analyser.polarity_scores(tweet_text)
+
+            if tweet.lang == 'es':
+
+                tweet['sentiment'] = sentiment_analysis.SentimentAnalysisSpanish()
+
+            elif tweet.lang == 'hi':
+                translation = translator.translate(tweet_text)
+                tweet['sentiment'] = self.analyser.polarity_scores(translation)
+
+            else:
+                tweet['sentiment'] = self.analyser.polarity_scores(tweet_text)
 
 
     def assign_class(self):
@@ -112,6 +126,8 @@ class OverallAnalyzer:
         :return:
         '''
 
+        
+
 
 
 
@@ -134,4 +150,4 @@ class OverallAnalyzer:
 #Tweet
 #Sentiment
 #Type
-#
+#Topic Modelling
