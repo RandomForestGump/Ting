@@ -1,4 +1,4 @@
-vaderSentiment == 1.0.0
+vaderSentiment == 3.3.2
 django == 3.2.9
 fuzzywuzzy == 0.18.0
 translate == 3.6.1
