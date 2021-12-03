@@ -1,0 +1,22 @@
+@import "../../config/styles/variables.scss";
+
+.card {
+  margin: 15px 0 10px;
+  padding: 15px 10px;
+  &__noTitle {
+    padding: 20px;
+  }
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    p {
+      color: $color-text;
+    }
+  }
+  &__invalid {
+    border: 1px solid $color-error;
+  }
+  &__validationText {
+    color: $color-error;
+  }
+}

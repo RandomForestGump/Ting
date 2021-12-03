@@ -1,0 +1,17 @@
+@import "../../config/styles/variables.scss";
+.IconList {
+  max-height: 100%;
+  align-items: center;
+  &__container {
+    max-height: 100%;
+    border-right: 1px solid $color-border;
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+  &__item {
+    display: block;
+    width: 50px;
+    height: auto;
+  }
+}

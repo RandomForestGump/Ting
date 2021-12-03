@@ -1,0 +1,15 @@
+.Select {
+  &__input {
+    &__label_hidden {
+      padding-top: 17px;
+      padding-bottom: 14px;
+    }
+  }
+  &__option {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 15px;
+    line-height: 19px;
+  }
+}

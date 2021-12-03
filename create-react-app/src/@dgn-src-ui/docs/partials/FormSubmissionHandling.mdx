@@ -1,0 +1,39 @@
+## Form Submission Handling
+
+Every form invokes an `onSubmit` callback method when the consumer successfully submits the form. This callback method will only get invoked once all client-side validation rules have passed. At this point, the UI considers the form valid and triggers the submission callback.
+
+In addition to the form data, the `onSubmit` callback is invoked with several arguments.
+
+| Argument             | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data                 | object | Form field names and values as key/value pairs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| e                    | Object | Synthetic React event                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| context              | object | Form context object with form methods. This object's methods are meant to provide a parent component access to several aspects of the child component.                                                                                                                                                                                                                                                                                                                                                                                          |
+| context.setError     | func   | This method is used to set server side errors and make them appear. This is likely the one form context method that will get used the most. `setError(field,ERROR_CODE)` Both arguments are strings. The first argument accepts a field name or the "form" literal string to trigger a form error (above the form). The second argument is the error code for an appropriate error message.                                                                                                                                                     |
+| context.getValues    | func   | This method will retrieve the form values. These values should be provided as the first argument in the `onSubmit` callback, but can also be accessed this way.                                                                                                                                                                                                                                                                                                                                                                                 |
+| context.setValue     | func   | This method allows you to manually set a value on a field. You can set a single field by using the field name and value as two arguments: `setValue("fName","Malcolm")`. You can set multiple values by supplying an array of field/value objects: `setValue([{"fName":"Malcolm"},{"lName":"Reynolds"}])`.                                                                                                                                                                                                                                      |
+| context.formResolver | func   | When a form is submitted on the client side, it initiates a `isResolved` state boolean as false. This triggers the spinning wheel on the submit button. If an error is set through the use of `context.setError`, it will automatically set `isResolved` to true. In cases where there are no errors, the screen is usually replaced with another. If you need to stay on the same page, but there are no errors, passing in `true` to `context.formResolver` will reset the submission status of the form and stop the spinning submit button. |
+
+### Typical Implementation of `onSubmit` callback
+
+Please note the pseudocode below may not use actual field names or error codes and is for example purposes.
+
+```js
+onSubmit: (data, e, { isError }) => {
+  // Invoke API request with information in the data object
+
+  // If the submission to the API request is successful, interacting
+  // with this screen should no longer be necessary and you can navigate
+  // to the correct screen.
+
+  // If the submission to the API request throws an error, you can go one
+  // of two routes. Some error codes require navigation to a specific error
+  // page. The rest can be passed to the form using the setError context method
+  setError("form", CARD_INVALID);
+
+  // Or a specific field
+  setError("primaryAccountNumber", PRIMARY_ACCOUNT_NUMBER_VALID);
+};
+```
+
+See the <a href="/?path=/docs/components-view--view-screen">View</a> component documentation for more guidance on how to pass this callback method to the screen.

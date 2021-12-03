@@ -1,0 +1,13 @@
+@import "../variables.scss";
+
+.Theme {
+  height: 100%;
+  color: $color-text;
+  font-size: $font-size-text;
+  line-height: $font-line-height;
+  font-family: $font-family-normal;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+}

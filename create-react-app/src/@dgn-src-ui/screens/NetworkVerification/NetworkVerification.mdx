@@ -1,0 +1,46 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import NetworkVerification from "./NetworkVerification";
+import NetworkMarquee from "@dgn-src-ui/screens/NetworkVerification/NetworkMarquee";
+import PassingViewProps from "@dgn-src-ui/docs/partials/PassingViewProps.mdx";
+import ViewInheritance from "@dgn-src-ui/docs/partials/ViewInheritance.mdx";
+import FormSubmissionHandling from "@dgn-src-ui/docs/partials/FormSubmissionHandling.mdx";
+
+<Meta title="Network Verification" component={NetworkVerification} />
+
+# Network Verification Screen
+
+**ALERT: This screen is not yet complete. The documentation and functionality of this screen are _NOT_ correct.**
+
+This page collects their first name and last name (and possibly email) to handoff for network verification where they may prompt further challenges or allow through without challenge.
+
+## Usage
+
+```jsx
+import View from "@dgn-src-ui/core/View";
+
+// ...
+
+<View screen="NetworkVerification" form={{ onSubmit: onSubmit }} />;
+```
+
+<PassingViewProps />
+
+## Form Fields
+
+| Field Name   | Rules                                | Description                                                    |
+| ------------ | ------------------------------------ | -------------------------------------------------------------- |
+| firstName    | required,max_length:50               | First name of consumer                                         |
+| lastName     | required,max_length:50               | Last name of consumer                                          |
+| emailAddress | required,max_length:255,format:email | Email Address of consumer, hopefully the same as their profile |
+
+## Props
+
+<Props of={NetworkVerification} />
+<ViewInheritance />
+<FormSubmissionHandling />
+
+## Resources
+
+- [Form Component](?path=/docs/components-forms--form)
+- [View Component](?path=/docs/components-view--view-screen)
+- [React Hook Form](https://react-hook-form.com/)

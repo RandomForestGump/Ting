@@ -1,0 +1,28 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import ToastAlert from "./ToastAlert";
+
+<Meta title="ToastAlert" component={ToastAlert} />
+
+# ToastAlert
+
+```js static
+import ToastAlert from "@dgn-src-ui/core/ToastAlert";
+```
+
+## Usage
+
+```jsx
+<ToastAlert open={open} onClose={handleClose} severity="success">
+  <Typography variant="body1" color="inherit">
+    New one-time access code sent
+  </Typography>
+</ToastAlert>
+```
+## Props
+
+<Props of={ToastAlert} />
+
+## Resources
+
+- [Material UI Snackbar Component](https://material-ui.com/components/snackbars/)
+- [Material UI Alert Component](https://material-ui.com/components/alert/)

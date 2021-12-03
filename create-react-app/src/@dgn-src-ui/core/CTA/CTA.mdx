@@ -1,0 +1,25 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import CTA from "./CTA";
+
+<Meta title="CTA" component={CTA} />
+
+# CTA Component
+
+```js static
+import CTA from "@dgn-src-ui/core/CTA/CTA";
+```
+
+## Usage
+
+`CTA` is intended to be a wrapper for user navigation components
+
+```jsx
+<CTA>
+  <Button>Continue</Button>
+  <FullWidthLink>Cancel and return to merchant</FullWidthLink>
+</CTA>
+```
+
+## Props
+
+<Props of={CTA} />

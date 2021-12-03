@@ -1,0 +1,40 @@
+import { Meta,Props } from "@storybook/addon-docs/blocks";
+import View from "@dgn-src-ui/core/View";
+
+<Meta title="General/Views" component={View}/>
+
+# Views
+
+The `View` component is a core component that can be used to load any of the UI screen components. This component wraps the screen in global configuration options. It also sets up the entire app layout, including the desired screen component along with the app header and footer. It is not recommended that the screen components get loaded directly and instead get rendered using this component.
+
+## Implementation
+There are a number of ways of implementing the `View` component, but the suggested way is to include the string path of the desired UI screen, relative to the `@dgn-src-ui/screens` folder. For example, the `AccountLocked` screen in the notifications folder would be included using `Notifications/AccountLocked`.
+
+```js
+import View from "@dgn-src-ui/core";
+
+// 
+
+const VerificationChannelScreen = props => {
+  // Screen business logic
+  return <View screen="Notifications/AccountLocked" {...props} />
+}
+```
+
+The less common way is to import the screen element and pass the raw screen component object to the `screen` prop.
+
+```js
+import View from "@dgn-src-ui/core";
+import AccountLocked from "@dgn-src-ui/screens/Notifications/AccountLocked";
+// 
+
+const VerificationChannelScreen = props => {
+  // Screen business logic
+  return <View screen={AccountLocked} {...props} />
+}
+```
+
+### Props
+Any properties in addition to the ones outlined below will be passed along to the UI screen component.
+
+<Props of={View} />

@@ -1,0 +1,29 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import Loader from "./Loader";
+import PassingViewProps from "@dgn-src-ui/docs/partials/PassingViewProps.mdx";
+
+<Meta title="Loader" component={Loader} />
+
+# Loader Screen
+
+The loading screen is meant to be a tranasitional screen while data for the next screen loads. The actual `Loader` screen component is a wrapper for a number of other Loaders, such as `LoadingProfile` and `ReturningToPurchase`.
+
+## Usage
+
+```jsx
+import View from "@dgn-src-ui/core/View";
+
+<View screen="Loader" heading="Please hold..." />;
+
+//or
+
+<View screen="Loader/ReturningToPurchase" />;
+```
+
+<PassingViewProps />
+
+## Props
+
+<Props of={Loader} />
+
+Wrapped `Loader` screen components such as the `LoadingProfile` screen component do not require props, as they are set internally.

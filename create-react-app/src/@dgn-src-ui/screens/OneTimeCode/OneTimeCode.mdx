@@ -1,0 +1,59 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import OneTimeCode from "./OneTimeCode";
+import PassingViewProps from "@dgn-src-ui/docs/partials/PassingViewProps.mdx";
+import ViewInheritance from "@dgn-src-ui/docs/partials/ViewInheritance.mdx";
+import FormSubmissionHandling from "@dgn-src-ui/docs/partials/FormSubmissionHandling.mdx";
+
+<Meta title="One Time Code" component={OneTimeCode} />
+
+# One Time Code Screen
+
+This screen handles all DCF side One Time Codes/Passwords. It does not have logic to automatically switch to the "Limit Reached" version of this screen, or any other screen switching logic. Instead, the props have to be changed or you have to manually load a different screen (Lock Outs).
+
+## Usage
+
+```jsx
+import View from "@dgn-src-ui/core/View";
+
+// ...
+
+<View
+  screen="OneTimeCode"
+  form={{
+    onSubmit: (data, e, context) => {
+      // Handle submission
+    },
+  }}
+  onResendCodeClick={(e) => {
+    // Handle "Resend Code" button click
+  }}
+  onSelectMethodClick={(e) => {
+    // Handle "Select Another Method" button click
+  }}
+  onCancelClick={(e) => {
+    e.preventDefault();
+    // Navigate back to merchant
+  }}
+/>;
+```
+
+<PassingViewProps />
+
+## Form Fields
+
+| Field Name     | Rules             | Description   |
+| -------------- | ----------------- | ------------- |
+| validationData | required,length:6 | One Time Code |
+
+## Props
+
+<Props of={OneTimeCode} />
+<ViewInheritance />
+<FormSubmissionHandling />
+
+## Resources
+
+- [Form Component](?path=/docs/components-forms--form)
+- [View Component](?path=/docs/components-view--view-screen)
+- [CodeInput Component](?path=/docs/components-text-field--code-input)
+- [React Hook Form](https://react-hook-form.com/)

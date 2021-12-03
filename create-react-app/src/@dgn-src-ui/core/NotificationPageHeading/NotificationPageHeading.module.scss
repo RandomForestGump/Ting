@@ -1,0 +1,12 @@
+.NotificationPageHeading {
+  max-width: 295px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  &__heading {
+    &__afterIcon {
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+  }
+}

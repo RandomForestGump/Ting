@@ -1,0 +1,39 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import Tooltip from "./Tooltip";
+
+<Meta title="Tooltip" component={Tooltip} />
+
+# Tooltip
+
+```js static
+import Tooltip from "@dgn-src-ui/core/Tooltip/Tooltip";
+import IconButton from '@material-ui/core/IconButton';
+```
+
+## Usage
+
+The ```Tooltip``` component is used to display text when a user performs an action on an anchor - such as hovering or clicking on a button.
+Its text that is displayed is set in its ```title``` prop, and its anchor is set as a child to the element.
+In the case shown below, the anchor is an ```IconButton``` Component.
+
+```jsx
+<Tooltip
+  arrow
+  title="Lorem ipsum dolor sit amet, elit, sed do eiusmod tempor incididunt ut labore et"
+  open={tooltipOpen}
+>
+  <IconButton onClick={handleTooltipOpen}>
+    <InfoOutlinedIcon />
+  </IconButton>
+</Tooltip>
+```
+
+
+## Props
+
+<Props of={Tooltip} />
+
+## Resources
+
+- [Material UI Tooltip Component](https://material-ui.com/components/tooltips/)
+- [Material UI IconButton Component](https://material-ui.com/components/buttons/#icon-buttons) 

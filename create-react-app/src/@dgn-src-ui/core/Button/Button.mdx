@@ -1,0 +1,28 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import Button from "./Button";
+
+<Meta title="Button" component={Button} />
+
+# Button
+
+```js static
+import Button from "@dgn-src-ui/core/Button/Button";
+import SmallButton from "@dgn-src-ui/core/Button/SmallButton/SmallButton";
+```
+
+## Usage
+
+```jsx
+<Button>Contained Button</Button>
+<Button loading={true}>Loading Button</Button>
+<Button variant="outlined" color="secondary">Outlined Button</Button>
+<SmallButton>Try Again</SmallButton>
+```
+
+## Props
+
+<Props of={Button} />
+
+## Resources
+
+- [Material UI Button Component](https://material-ui.com/components/buttons/)

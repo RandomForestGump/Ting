@@ -1,0 +1,26 @@
+import { Story, Meta, Props, Preview } from '@storybook/addon-docs/blocks';
+import Carousel from './Carousel';
+
+<Meta title="Carousel" component={Carousel} />
+
+# Carousel
+
+```js static
+import Carousel from "@dgn-src-ui/core/Carousel/Carousel";
+```
+## Usage
+
+```Carousel``` component is built with the ```MobileStepper``` component, which uses the ```Paper``` and the ```Stepper``` APIs to move between views. The React Swipeable Views library is used to create the sliding Carousel effect.
+
+```jsx
+<Carousel slides={slides} onCarouselUpdate={slideAction} />
+```
+
+## Props
+
+<Props of={Carousel} />
+
+## Resources
+
+- [React Swipable Views](https://github.com/oliviertassinari/react-swipeable-views) for transitions
+- [Material UI Mobile Stepper](https://material-ui.com/components/steppers/#mobile-stepper)

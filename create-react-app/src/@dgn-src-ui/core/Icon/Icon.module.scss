@@ -1,0 +1,13 @@
+.Icon {
+  display: inline-flex;
+  vertical-align: middle;
+  &__inline {
+    width: 1.27em;
+    height: 1em;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}

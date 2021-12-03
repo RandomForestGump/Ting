@@ -1,0 +1,51 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import RemoveCard from "./RemoveCard";
+import PassingViewProps from "@dgn-src-ui/docs/partials/PassingViewProps.mdx";
+import ViewInheritance from "@dgn-src-ui/docs/partials/ViewInheritance.mdx";
+import FormSubmissionHandling from "@dgn-src-ui/docs/partials/FormSubmissionHandling.mdx";
+
+<Meta title="Remove Card" component={RemoveCard} />
+
+# Remove Card Screen
+
+This screen is the confirmation screen for removing the current card from the consumer's wallet, from the Review and Confirm page.
+
+## Usage
+
+```jsx
+import View from "@dgn-src-ui/core/View";
+
+// ...
+
+<View
+  screen="Confirmations/RemoveCard"
+  card={{
+    image: "https://assets.discovernetwork.com/it-card.png",
+    type: "Discover Card",
+    lastFour: "9201",
+  }}
+  form={{
+    onSubmit: (data, e, context) => {
+      // Handle submission
+    },
+  }}
+  onCancelClick={(e) => {
+    e.preventDefault();
+    // Navigate back to review and confirm page
+  }}
+/>;
+```
+
+<PassingViewProps />
+
+## Props
+
+<Props of={RemoveCard} />
+<ViewInheritance />
+<FormSubmissionHandling />
+
+## Resources
+
+- [Form Component](?path=/docs/components-forms--form)
+- [View Component](?path=/docs/components-view--view-screen)
+- [React Hook Form](https://react-hook-form.com/)

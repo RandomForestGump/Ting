@@ -1,0 +1,25 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import Input from "./Input";
+
+<Meta title="Input" component={Input} />
+
+# Input
+
+```js static
+import Input from "@dgn-src-ui/core/Input/Input";
+```
+
+## Usage
+
+- `Input` is a wrapper for material ui input components (select, text field, etc.)
+- Adds an input label, and optional validation icons
+
+```jsx
+<Input>
+  <FilledInput fullWidth />
+</Input>
+```
+
+## Props
+
+<Props of={Input} />

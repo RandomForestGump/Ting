@@ -1,0 +1,33 @@
+import { Story, Meta, Props, Preview } from "@storybook/addon-docs/blocks";
+import CodeInput from "./CodeInput";
+
+<Meta title="CodeInput" component={CodeInput} />
+
+# Code Input Component
+
+```js static
+import CodeInput from "@dgn-src-ui/core/CodeInput/CodeInput";
+```
+
+## Usage
+
+```jsx
+<CodeInput characters={6} />
+```
+
+## Props
+
+<Props of={CodeInput} />
+
+## Notes
+
+- This input an extension of the `TextField` component
+- Masked using "react-text-mask"
+- Validation using "react-hook-form"
+
+## Resources
+
+- [Material UI Text Field Component](https://material-ui.com/components/text-fields/)
+- [React Text Mask](https://www.npmjs.com/package/react-text-mask)
+- [React Hook Form](https://react-hook-form.com/)
+- [TextField](?path=/docs/components-text-field--text-field-comp)
