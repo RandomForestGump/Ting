@@ -122,15 +122,7 @@ class OverallAnalyzer:
                 else:
                     continue
 
-        #Average out variable
-
         return  out
-
-
-
-
-
-
 
     def covid_curve(self):
 
