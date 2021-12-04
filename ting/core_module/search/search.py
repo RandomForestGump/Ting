@@ -12,3 +12,5 @@ def getTweet(query):
     docs = json.load(data)['response']['docs']
     return docs
 
+
+
