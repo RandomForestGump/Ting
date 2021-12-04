@@ -11,9 +11,11 @@ def index(request):
 def search(request):
     print(request)
     try:
-        load_query = request.body.decode('utf-8')
-        query = json.loads(load_query)
-        docs = getTweet(query['query_term'])
+        # load_query = request.body.decode('utf-8')
+        # query = json.loads(load_query)
+        # docs = getTweet(query['query_term'])
+        query =request.GET['query_term']
+        docs = getTweet(query)
 
         # analysis = DynamicAnalyzer(docs)
         #
