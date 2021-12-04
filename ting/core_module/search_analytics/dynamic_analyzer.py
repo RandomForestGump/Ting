@@ -1,5 +1,6 @@
 import re
-
+import pandas as pd
+import numpy as np
 
 class DynamicAnalyzer:
 
@@ -14,6 +15,7 @@ class DynamicAnalyzer:
         Input: Json of tweets
         :return: {'organic':40%, 'reply':30% , 'retweet':30%}
         '''
+
         count,countReply,countRetweet,countOrganic=0,0,0,0
         for t in self.tweets:
             if t['replied_to_tweet_id'] not None:
@@ -36,11 +38,13 @@ class DynamicAnalyzer:
 
 
 
+
     def get_sentiment(self,thresh):
         '''
         Input: Json of Tweets
         :return: {'positive':40%, 'Negative':30% , 'Neutral':30%}
         '''
+
         count,pos,neg,neu = 0,0,0,0
         {}
         for t in self.tweets:
@@ -58,14 +62,12 @@ class DynamicAnalyzer:
         pneg = (neg / count) * 100
         return {"Positive": ppos, "Negative": pneg, "Neutral": pneu}
 
-
-
     def get_poi_distribution(self):
         '''
                 Input: Json of Tweets
                 :return: {'Narendra Modi':40%, 'Rahul Modi':30% , '':30%}
         '''
-
+        return None
 
 
 
@@ -89,6 +91,7 @@ class DynamicAnalyzer:
         #                        mask=mask).generate_from_frequencies(
         #     df.T.sum(axis=1))
 
+        return None
 
     def get_xtreme_tweets(self):
         '''
@@ -99,6 +102,7 @@ class DynamicAnalyzer:
         #to turn into df??
         self.tweet.head(2)
 
+        return None
 
 
     def anti_vaxxer(self):
@@ -106,6 +110,8 @@ class DynamicAnalyzer:
         #Top antivaccine worst sentiment tweets
         :return: Top antivax tweet with negative sentiment
         '''
+
+        return None
 
 
 

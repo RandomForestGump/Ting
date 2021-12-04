@@ -5,8 +5,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from keyword_data import covid_keywords, vaccine_keywords, antivaccine_keywords, vaccine_brands
 from translate import Translator
 translator = Translator(from_lang="hindi",to_lang="english")
-
-from sentiment_analysis_spanish import sentiment_analysis
+translator1 = Translator(from_lang="spanish",to_lang="english")
 
 class OverallAnalyzer:
 
@@ -28,7 +27,6 @@ class OverallAnalyzer:
 
             if tweet['tweet_lang'] == 'es':
 
-                #                 tweet['sentiment'] = sentiment_analysis.SentimentAnalysisSpanish()
                 translation = translator1.translate(tweet_text)
 
                 tweet['sentiment'] = self.analyser.polarity_scores(translation)['pos']
@@ -72,6 +70,10 @@ class OverallAnalyzer:
                             break
 
     def population_sentiment_analysis(self):
+        for tweet in self.all_tweets:
+            if not tweet['verified']:
+
+                #Link
 
 
     def reply_analysis(self):
@@ -80,6 +82,12 @@ class OverallAnalyzer:
         Covid related POI tweets reply sentiment analysis
         :return:
         '''
+
+        for tweet in self.all_tweets:
+            if tweet['reply_to_tweet_id']:
+
+                #Poi based sentiment on
+
 
 
     def check_vaccine_brand(self, tweet):
