@@ -17,7 +17,7 @@ class DynamicAnalyzer:
 
         count,countReply,countRetweet,countOrganic=0,0,0,0
         for t in self.tweets:
-            if t['replied_to_tweet_id'] is not None:
+            if t.get('replied_to_tweet_id', None) is not None:
                 countReply+=1
             elif re.match(r'RT\s@....+', t['tweet_text']):
                 countRetweet+=1
