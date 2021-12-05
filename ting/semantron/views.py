@@ -30,12 +30,18 @@ def search(request):
         antivax = analysis.anti_vaxxer()
 
         result['documents'] = docs
+        print('Docs Fetched')
         result['tweet_type'] = tweet_type
         result['poi_dist'] = poi_distribution
+        print('Tweet types and poi distribution Fetched')
         result['keywords'] = keyword_wc
+        print('Keywords Fetched')
         result['antivaccine_tweets'] = antivax
+        print('Antivacc Fetched')
         result['extreme'] = extreme
-        result['tweet_sentiment']
+        print('Extreme Fetched')
+        result['tweet_sentiment'] = tweet_sentiment
+        print('Main sentiment Fetched')
 
 
         return JsonResponse({'status': 200, 'body': result})
