@@ -19,17 +19,14 @@ class DynamicAnalyzer:
         for t in self.tweets:
             if t['replied_to_tweet_id'] is not None:
                 countReply+=1
-                count+=1
             elif re.match(r'RT\s@....+', t['tweet_text']):
                 countRetweet+=1
-                count+=1
             else:
                 countOrganic+=1
-                count+=1
-
+            count+=1
         pReply=(countReply/count)*100
-        pRetweet = (countRetweet / count) * 100
-        pOrganic = (countOrganic / count) * 100
+        pRetweet = (countRetweet / count) * 100 if count != 0 else 0
+        pOrganic = (countOrganic / count) * 100 if count != 0 else 0
         return {"Reply":pReply,"Retweet":pRetweet,"Organic":pOrganic}
 
 
@@ -44,18 +41,16 @@ class DynamicAnalyzer:
         count,pos,neg,neu = 0,0,0,0
 
         for t in self.tweets:
-            if t['sentiment']  > 0.5:
+            if t['sentiment']  > 0:
                 pos += 1
-                count += 1
-            elif t['sentiment']  == 0:
-                neu += 1
-                count += 1
-            else:
+            elif t['sentiment']  < 0:
                 neg += 1
-                count += 1
-        ppos = (pos / count) * 100
-        pneu = (neu / count) * 100
-        pneg = (neg / count) * 100
+            else:
+                neu += 1
+            count += 1
+        ppos = (pos / count) * 100 if count != 0 else 0
+        pneu = (neu / count) * 100 if count != 0 else 0
+        pneg = (neg / count) * 100 if count != 0 else 0
         return {"Positive": ppos, "Negative": pneg, "Neutral": pneu}
 
     def get_poi_distribution(self):
@@ -70,7 +65,6 @@ class DynamicAnalyzer:
                     poi[tweet['poi_name']] +=1
                 else:
                     poi[tweet['poi_name']] =1
-
         poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)}
         return poi[:15]
 

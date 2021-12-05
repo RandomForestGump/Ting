@@ -4,6 +4,8 @@ from fuzzywuzzy import fuzz
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from keyword_data import covid_keywords, vaccine_keywords, antivaccine_keywords, vaccine_brands
 from translate import Translator
+import json
+import urllib.request
 translator = Translator(from_lang="hindi",to_lang="english")
 translator1 = Translator(from_lang="spanish",to_lang="english")
 
@@ -90,18 +92,39 @@ class OverallAnalyzer:
 
 
 
-    def check_vaccine_brand(self, tweet):
+    def check_vaccine_brand(self):
+        brands = {}
+        vaccine_brands = {'pfizer': ['Pfizer', 'pfizer'],
+                          'JnJ': ['Janssen','J&J','Johnson&Johnson','JohnsonandJohnson','JnJ'],
+                          'moderna': ['Moderna', 'moderna'],
+                          'covishield': ['astrazenaca', 'oxford', 'AstraZenaca', 'covishield'],
+                          'covaxin': ['BharatBiotech', 'covaxin']}
+        for key in vaccine_brands.keys():
+            s = vaccine_brands[key]
+            query = ''
+            for term in s:
+                query += term + '%3A'
+            print(query)
+            inurl = "http://3.144.198.122:8983/solr/IRF21P2/select?defType=edismax&q.op=OR&q={}&qf=tweet_text&rows=5".format(
+                query)
+            print(inurl)
+            data = urllib.request.urlopen(inurl)
+            tweets = json.load(data)['response']['docs']
+            pos, neg, new, count = 0, 0, 0, 0
+            for tweet in tweets:
+                if tweet['sentiment'] > 0:
+                    pos += 1
+                elif tweet['sentiment'] < 0:
+                    neg += 1
+                else:
+                    neu += 1
+                count += 1
+            ppos = (pos / count) * 100 if count != 0 else 0
+            pneu = (neu / count) * 100 if count != 0 else 0
+            pneg = (neg / count) * 100 if count != 0 else 0
 
-        for word in tweet.split(' '):
-            if word in self.vaccine_brands['pfizer']:
-                brand = 'pfizer'
-            elif word in self.vaccine_brands['JnJ']:
-                brand = 'JnJ'
-
-            else:
-                brand = None
-
-            return brand
+            brands[key] = [ppos, pneu, pneg]
+        return brands
 
 
     def vaccine_sentiment(self):
