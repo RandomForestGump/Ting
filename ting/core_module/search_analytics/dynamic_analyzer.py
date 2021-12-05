@@ -43,10 +43,10 @@ class DynamicAnalyzer:
         count,pos,neg,neu = 0,0,0,0
 
         for t in self.tweets:
-            print(t['id'])
-            if t['sentiment'] > self.thresh:
+            # print(t['id'])
+            if t.get('sentiment', 0) > self.thresh:
                 pos += 1
-            elif t['sentiment'] < -self.thresh:
+            elif t.get('sentiment', 0) < -self.thresh:
                 neg += 1
             else:
                 neu += 1
@@ -109,7 +109,7 @@ class DynamicAnalyzer:
         d = {}
         for tweet in self.tweets:
             tweet_text = tweet['tweet_text']
-            d[tweet_text] = tweet['sentiment']
+            d[tweet_text] = tweet.get('sentiment', 0)
 
         xtweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse = True)}
 
@@ -128,7 +128,7 @@ class DynamicAnalyzer:
         for tweet in self.tweets:
             if tweet['is_antivaccine']:
                 tweet_text = tweet['tweet_text']
-                d[tweet_text] = tweet['sentiment']
+                d[tweet_text] = tweet.get('sentiment', 0)
 
         antiVacTweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
 
