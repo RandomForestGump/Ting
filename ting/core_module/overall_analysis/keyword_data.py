@@ -233,7 +233,8 @@ covid_keywords = [
         "incubation period"
     ]
 
-antivaccine_keywords = ['abolishbigpharma','noforcedflushots','antivaccine','NoForcedVaccines','ArrestBillGates','notomandatoryvaccines','betweenmeandmydoctor','NoVaccine','bigpharmafia','NoVaccineForMe','bigpharmakills','novaccinemandates','BillGatesBioTerrorist','parentalrights','billgatesevil','parentsoverpharma','BillGatesIsEvil','saynotovaccines','billgatesisnotadoctor','stopmandatoryvaccination','billgatesvaccine','syringeslaughter','cdcfraud','unvaccinated','cdctruth','v4vglobaldemo','cdcwhistleblower','vaccinationchoice','covidvaccineispoison','VaccineAgenda','depopulation','vaccinedamage','DoctorsSpeakUp','vaccinefailure','educateb4uvax','vaccinefraud','exposebillgates','vaccineharm','forcedvaccines','vaccineinjuries','Fuckvaccines','vaccineinjury','idonotconsent','VaccinesAreNotTheAnswer','informedconsent','vaccinesarepoison','learntherisk','vaccinescause','medicalfreedom','vaccineskill','medicalfreedomofchoice','vaxxed','momsofunvaccinatedchildren','yeht','mybodymychoice']
+antivaccine_keywords = ['abolishbigpharma','noforcedflushots','antivaccine','NoForcedVaccines','notomandatoryvaccines','NoVaccine','NoVaccineForMe','novaccinemandates','saynotovaccines','stopmandatoryvaccination','unvaccinated','vaccinationchoice','covidvaccineispoison','VaccineAgenda','vaccinedamage','vaccinefraud','vaccineharm','forcedvaccines','vaccineinjuries','Fuckvaccines','vaccineinjury','idonotconsent','VaccinesAreNotTheAnswer','vaccinescause','vaccineskill','vaxxed','momsofunvaccinatedchildren','antivaxx','antivaxxer','getvax','immunization','learntherisk','vaccinateyourkids','vaccinefailure','vaccinesafety','antivacunas','lasvacunasfuncionan','lasvacunassalvanvidas']
+
 vaccine_keywords =  [
         "anticuerpos",
         "vaccine mandate",
