@@ -34,7 +34,7 @@ class DynamicAnalyzer:
 
 
 
-    def get_sentiment(self,thresh):
+    def get_sentiment(self):
         '''
         Input: Json of Tweets
         :return: {'positive':40%, 'Negative':30% , 'Neutral':30%}
