@@ -59,15 +59,19 @@ class DynamicAnalyzer:
                 :return: {'Narendra Modi':40%, 'Rahul Modi':30% , '':30%}
         '''
         poi = {}
-        n = self.tweets
+        n = len(self.tweets)
         for tweet in self.tweets:
-            if tweet.get('poi_name',None) is not None:
-                if tweet['poi_name'] in poi:
+            m = tweet.get('poi_name',None)
+            if m is not None:
+                if m in poi:
                     poi[tweet['poi_name']] += 1
                 else:
                     poi[tweet['poi_name']] = 1
 
-        poi = {k: v/n for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:7]}
+        poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:7]}
+        print(poi)
+        for key in poi.keys():
+            poi[key] = np.round((poi[key]/n)*100, 2)
         return poi
 
 
