@@ -59,10 +59,12 @@ class DynamicAnalyzer:
                 :return: {'Narendra Modi':40%, 'Rahul Modi':30% , '':30%}
         '''
         poi = {}
-        n = len(self.tweets)
+        n = 0
+
         for tweet in self.tweets:
             m = tweet.get('poi_name',None)
             if m is not None:
+                n+=1
                 if m in poi:
                     poi[tweet['poi_name']] += 1
                 else:
