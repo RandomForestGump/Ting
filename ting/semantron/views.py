@@ -10,16 +10,18 @@ def index(request):
 
 def search(request):
     print(request)
+
     try:
+        d = {}
         # load_query = request.body.decode('utf-8')
         # query = json.loads(load_query)
         # docs = getTweet(query['query_term'])
         query = request.GET['query_term']
         docs = getTweet(query)
 
-        # analysis = DynamicAnalyzer(docs)
+        analysis = DynamicAnalyzer(docs)
         #
-        # tweet_type = analysis.get_tweet_type()
+        tweet_type = analysis.get_tweet_type()
         #
         # tweet_sentiment = analysis.get_sentiment()
         #
@@ -31,7 +33,10 @@ def search(request):
         #
         # antivax = analysis.anti_vaxxer()
 
-        return JsonResponse({'status': 200, 'body': docs})
+        d['documents'] = docs
+        d['tweet_type'] = tweet_type
+
+        return JsonResponse({'status': 200, 'body': d})
 
 
 
