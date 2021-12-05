@@ -36,7 +36,7 @@ def search(request):
         d['documents'] = docs
         d['tweet_type'] = tweet_type
         d['poi_dist'] = poi_distribution
-        # d['keywords'] = keyword_wc
+        d['keywords'] = keyword_wc
 
         print('\n')
         print(d['poi_dist'])

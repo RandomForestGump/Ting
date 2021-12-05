@@ -70,8 +70,7 @@ class DynamicAnalyzer:
                 else:
                     poi[tweet['poi_name']] = 1
 
-        poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:7]}
-        print(poi)
+        poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:10]}
         for key in poi.keys():
             poi[key] = np.round((poi[key]/n)*100, 2)
         return poi
