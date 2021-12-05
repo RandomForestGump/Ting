@@ -1,7 +1,7 @@
 import re
 import pandas as pd
 import numpy as np
-
+from collections import Counter
 class DynamicAnalyzer:
 
     def __init__(self, tweets):
@@ -71,9 +71,12 @@ class DynamicAnalyzer:
                     poi[tweet['poi_name']] = 1
 
         poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:10]}
+        empty = []
         for key in poi.keys():
-            poi[key] = np.round((poi[key]/n)*100, 2)
-        return poi
+            d = {'poi_name': key, 'percent': np.round((poi[key]/n)*100, 2)}
+            empty.append(d)
+
+        return empty
 
 
     def get_hashtag_wc(self):
@@ -88,7 +91,7 @@ class DynamicAnalyzer:
             if x:
                 dict_list+=x
 
-        return dict_list
+        return Counter(dict_list)
         # mask is the image used to reshape the cloud
         # mask = np.array(Image.open('./images/syringe44_.jpeg'))
         # word_cloud = WordCloud(collocations=False, background_color='white',
