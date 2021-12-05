@@ -35,7 +35,7 @@ def search(request):
 
         d['documents'] = docs
         d['tweet_type'] = tweet_type
-
+        print(d['tweet_type'])
         return JsonResponse({'status': 200, 'body': d})
 
 
