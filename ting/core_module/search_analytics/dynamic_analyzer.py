@@ -27,7 +27,8 @@ class DynamicAnalyzer:
         pReply=(countReply/count)*100
         pRetweet = (countRetweet / count) * 100 if count != 0 else 0
         pOrganic = (countOrganic / count) * 100 if count != 0 else 0
-        return {"Reply":pReply,"Retweet":pRetweet,"Organic":pOrganic}
+        x = [{'type':'Reply', 'percent':np.round(pReply, 2)}, {'type':'Organic', 'percent':np.round(pOrganic, 2)}, {'type':'Retweets', 'percent':np.round(pRetweet, 2)}]
+        return x
 
 
 
@@ -51,6 +52,7 @@ class DynamicAnalyzer:
         ppos = (pos / count) * 100 if count != 0 else 0
         pneu = (neu / count) * 100 if count != 0 else 0
         pneg = (neg / count) * 100 if count != 0 else 0
+
         return {"Positive": ppos, "Negative": pneg, "Neutral": pneu}
 
     def get_poi_distribution(self):
