@@ -43,9 +43,10 @@ class DynamicAnalyzer:
         count,pos,neg,neu = 0,0,0,0
 
         for t in self.tweets:
-            if t['sentiment']  > self.thresh:
+            print(t['id'])
+            if t['sentiment'] > self.thresh:
                 pos += 1
-            elif t['sentiment']  < -self.thresh:
+            elif t['sentiment'] < -self.thresh:
                 neg += 1
             else:
                 neu += 1
