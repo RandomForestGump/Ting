@@ -9,9 +9,6 @@ nlp = spacy.load("en_core_web_sm")
 
 import collections
 
-
-
-
 class OpinionMiner:
     #Input : array list of tweets
 
@@ -164,10 +161,4 @@ class OpinionMiner:
             d[tw_id] = score_dict
 
         return d
-
-
-
-
-
-
 

@@ -71,7 +71,7 @@ class OverallAnalyzer:
  14499829.0: 'World Health Organization (WHO)'}
 
         self.countries = ['India', 'Mexico', 'US']
-        self.covid_data = pd.read_csv('..covid/covid_data.csv')
+        self.covid_data = pd.read_csv('./covid_data.csv')
 
 
     def assign_sentiment(self):
@@ -174,7 +174,7 @@ class OverallAnalyzer:
             print(inurl)
             data = urllib.request.urlopen(inurl)
             tweets = json.load(data)['response']['docs']
-            pos, neg, new, count = 0, 0, 0, 0
+            pos, neg, neu, count = 0, 0, 0, 0
             for tweet in tweets:
                 if tweet['sentiment'] > 0:
                     pos += 1
@@ -222,12 +222,17 @@ class OverallAnalyzer:
 
         for country in self.countries:
             tweet_daily = data[data['Country'] == country]
+            tweet_daily.groupby('created_at')
             y = self.covid_data[self.covid_data['Country_Region'] == country]
 
 
 
+
+
     def antivaxxer_analysis(self):
-        ##
+        ##Name of User analysis on antivaxxers #Num of vaccine/ anti-vaccine tweets based on assign class #antivaxxer analysis of keywords
+
+
 
 
 
@@ -239,8 +244,13 @@ class OverallAnalyzer:
 
     def poi_distribution(self):
 
-
+    #Painful
     def keyword_sentiment(self):
+
+        #Fetch top 100 keywords and their sentiment
+
+
+
 
 
 

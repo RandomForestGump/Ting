@@ -7,6 +7,7 @@ class DynamicAnalyzer:
     def __init__(self, tweets):
         self.tweets = tweets
         self.poi_list = []
+        self.thresh = 0.05
 
     def get_tweet_types(self):
 
@@ -27,8 +28,8 @@ class DynamicAnalyzer:
         pReply=(countReply/count)*100
         pRetweet = (countRetweet / count) * 100 if count != 0 else 0
         pOrganic = (countOrganic / count) * 100 if count != 0 else 0
-        x = [{'type':'Reply', 'percent':np.round(pReply, 2)}, {'type':'Organic', 'percent':np.round(pOrganic, 2)}, {'type':'Retweets', 'percent':np.round(pRetweet, 2)}]
-        return x
+        result = [{'type':'Reply', 'percent':np.round(pReply, 2)}, {'type':'Organic', 'percent':np.round(pOrganic, 2)}, {'type':'Retweets', 'percent':np.round(pRetweet, 2)}]
+        return result
 
 
 
@@ -42,9 +43,9 @@ class DynamicAnalyzer:
         count,pos,neg,neu = 0,0,0,0
 
         for t in self.tweets:
-            if t['sentiment']  > 0:
+            if t['sentiment']  > self.thresh:
                 pos += 1
-            elif t['sentiment']  < 0:
+            elif t['sentiment']  < -self.thresh:
                 neg += 1
             else:
                 neu += 1
@@ -52,8 +53,9 @@ class DynamicAnalyzer:
         ppos = (pos / count) * 100 if count != 0 else 0
         pneu = (neu / count) * 100 if count != 0 else 0
         pneg = (neg / count) * 100 if count != 0 else 0
+        result = [{'type':'Positive', 'percent':np.round(ppos, 2)}, {'type':'Negative', 'percent':np.round(pneg, 2)}, {'type':'Neutral', 'percent':np.round(pneu, 2)}]
 
-        return {"Positive": ppos, "Negative": pneg, "Neutral": pneu}
+        return result
 
     def get_poi_distribution(self):
         '''
@@ -73,12 +75,12 @@ class DynamicAnalyzer:
                     poi[tweet['poi_name']] = 1
 
         poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:10]}
-        empty = []
+        result = []
         for key in poi.keys():
             d = {'poi_name': key, 'percent': np.round((poi[key]/n)*100, 2)}
-            empty.append(d)
+            result.append(d)
 
-        return empty
+        return result
 
 
     def get_hashtag_wc(self):
@@ -93,14 +95,10 @@ class DynamicAnalyzer:
             if x:
                 dict_list+=x
 
-        return Counter(dict_list)
-        # mask is the image used to reshape the cloud
-        # mask = np.array(Image.open('./images/syringe44_.jpeg'))
-        # word_cloud = WordCloud(collocations=False, background_color='white',
-        #                        max_words=200, width=3000,
-        #                        height=2000, colormap='viridis',
-        #                        mask=mask).generate_from_frequencies(
-        #     df.T.sum(axis=1))
+        result = Counter(dict_list)
+
+        return result
+
 
     def get_xtreme_tweets(self):
         '''
@@ -115,9 +113,9 @@ class DynamicAnalyzer:
         xtweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse = True)}
 
         pos_ex = xtweets[:2]
-        neg_ex = xtweets[:-2]
-
-        return pos_ex, neg_ex
+        neg_ex = xtweets[-2:]
+        result = [{'positive_tweets': pos_ex},{'negati_tweets': neg_ex}]
+        return result
 
 
     def anti_vaxxer(self):
@@ -133,9 +131,5 @@ class DynamicAnalyzer:
 
         antiVacTweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
 
-        antivac = antiVacTweets[:10]
-        return antivac
-
-
-
-
+        result = [{'antivaccine_tweets':antiVacTweets[:5]}]
+        return result
