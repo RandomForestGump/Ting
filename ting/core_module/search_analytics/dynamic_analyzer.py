@@ -8,7 +8,7 @@ class DynamicAnalyzer:
         self.tweets = tweets
         self.poi_list = []
         self.thresh = 0.05
-
+        self.k = 2
     def get_tweet_types(self):
 
         '''
@@ -111,11 +111,10 @@ class DynamicAnalyzer:
             tweet_text = tweet['tweet_text']
             d[tweet_text] = tweet.get('sentiment', 0)
 
-        xtweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse = True)}
+        pos_ex = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse = True)[:self.k]}
+        neg_ex = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])[:self.k]}
 
-        pos_ex = xtweets[:2]
-        neg_ex = xtweets[-2:]
-        result = [{'positive_tweets': pos_ex},{'negati_tweets': neg_ex}]
+        result = [{'positive_tweets': pos_ex},{'negative_tweets': neg_ex}]
         return result
 
 
@@ -130,7 +129,7 @@ class DynamicAnalyzer:
                 tweet_text = tweet['tweet_text']
                 d[tweet_text] = tweet.get('sentiment', 0)
 
-        antiVacTweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
+        antiVacTweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])[:5]}
 
-        result = [{'antivaccine_tweets':antiVacTweets[:5]}]
+        result = [{'antivaccine_tweets':antiVacTweets}]
         return result
