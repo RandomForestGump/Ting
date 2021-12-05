@@ -59,14 +59,16 @@ class DynamicAnalyzer:
                 :return: {'Narendra Modi':40%, 'Rahul Modi':30% , '':30%}
         '''
         poi = {}
+        n = self.tweets
         for tweet in self.tweets:
-            if tweet['poi_name'] is not None:
+            if tweet.get('poi_name',None) is not None:
                 if tweet['poi_name'] in poi:
-                    poi[tweet['poi_name']] +=1
+                    poi[tweet['poi_name']] += 1
                 else:
-                    poi[tweet['poi_name']] =1
-        poi = {k: v for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)}
-        return poi[:15]
+                    poi[tweet['poi_name']] = 1
+
+        poi = {k: v/n for k,v in sorted(poi.items(), key = lambda x: x[1], reverse = True)[:7]}
+        return poi
 
 
     def get_hashtag_wc(self):
@@ -77,8 +79,9 @@ class DynamicAnalyzer:
         '''
         dict_list = []
         for t in self.tweets:
-            x = t['hashtags']
-            dict_list+=x
+            x = t.get('hashtags', None)
+            if x:
+                dict_list+=x
 
         return dict_list
         # mask is the image used to reshape the cloud

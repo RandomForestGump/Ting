@@ -25,9 +25,9 @@ def search(request):
         #
         # tweet_sentiment = analysis.get_sentiment()
         #
-        # poi_distribution = analysis.get_poi_distribution()
+        poi_distribution = analysis.get_poi_distribution()
         #
-        # keyword_wc = analysis.get_hashtag_wc()
+        keyword_wc = analysis.get_hashtag_wc()
         #
         # extreme = analysis.get_xtreme_tweets()
         #
@@ -35,11 +35,12 @@ def search(request):
 
         d['documents'] = docs
         d['tweet_type'] = tweet_type
-        print(d['tweet_type'])
+        d['poi_dist'] = poi_distribution
+        d['keywords'] = keyword_wc
+
+        print('\n')
+        print(d['poi_dist'])
         return JsonResponse({'status': 200, 'body': d})
-
-
-
 
     except Exception as e:
 
