@@ -96,9 +96,14 @@ class DynamicAnalyzer:
             if x:
                 dict_list+=x
 
-        result = Counter(dict_list)
+        count = Counter(dict_list)
+        result = []
+        for key in count.keys():
+            d = {'type': key, 'value': count[key]}
+            result.append(d)
 
         return result
+
 
 
     def get_xtreme_tweets(self):
