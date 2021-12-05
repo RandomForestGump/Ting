@@ -6,6 +6,7 @@ from keyword_data import covid_keywords, vaccine_keywords, antivaccine_keywords,
 from translate import Translator
 import json
 import urllib.request
+import pandas as pd
 translator = Translator(from_lang="hindi",to_lang="english")
 translator1 = Translator(from_lang="spanish",to_lang="english")
 
@@ -19,6 +20,9 @@ class OverallAnalyzer:
         self.all_tweets = all_tweets
         self.analyser = SentimentIntensityAnalyzer()
         self.vaccine_brands = vaccine_brands
+        self.countries = ['India', 'Mexico', 'US']
+        self.covid_data = pd.read_csv('..covid/covid_data.csv')
+
 
     def assign_sentiment(self):
         abc = []
@@ -154,17 +158,22 @@ class OverallAnalyzer:
         :return:
         '''
 
-        
+        data = pd.DataFrame(self.all_tweets)
 
-
+        for country in self.countries:
+            tweet_daily = data[data['Country'] == country]
+            y = self.covid_data[self.covid_data['Country_Region'] == country]
 
 
 
     def antivaxxer_analysis(self):
+        ##
 
 
 
     def language_analysis(self):
+
+        self.all_tweets =
 
 
 
