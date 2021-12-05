@@ -4,7 +4,7 @@ import numpy as np
 
 class DynamicAnalyzer:
 
-    def __init(self, tweets):
+    def __init__(self, tweets):
         self.tweets = tweets
         self.poi_list = []
 

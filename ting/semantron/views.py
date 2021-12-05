@@ -21,7 +21,7 @@ def search(request):
 
         analysis = DynamicAnalyzer(docs)
         #
-        tweet_type = analysis.get_tweet_type()
+        tweet_type = analysis.get_tweet_types()
         #
         # tweet_sentiment = analysis.get_sentiment()
         #
