@@ -7,7 +7,7 @@ from .views import *
 urlpatterns = [
     url(r'^$', csrf_exempt(index), name='index'),
     url(r'^search/vision/$', csrf_exempt(search), name='Search plus Dynamic Search Analysis'),
-    # url(r'^eta/pdp_eta_prediction', csrf_exempt(eta_pdp_prediction), name='Predicting PDP ETA'),
+    url(r'^filter/poi/', csrf_exempt(poi_filter), name='Filter for POI')
     # url(r'^eta/product_page_eta', csrf_exempt(eta_product_page), name='Product page ETA'),
     # url(r'^eta/order_stuck_time', csrf_exempt(predict_digitization_priority), name='Predicting Order Time in PQ'),
     # url(r'^healthCheck', csrf_exempt(health_check), name='Health Check API'),

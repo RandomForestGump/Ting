@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from core_module.search.search import getTweet
+from core_module.search.search import getTweet, poiFilter
 from core_module.search_analytics.dynamic_analyzer import DynamicAnalyzer
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
+import urllib.request
 
 def index(request):
     return render(request, 'DsApp/index.html', {})
+
 
 def search(request):
     print(request)
@@ -43,7 +45,6 @@ def search(request):
         result['tweet_sentiment'] = tweet_sentiment
         print('Main sentiment Fetched')
 
-
         return JsonResponse({'status': 200, 'body': result})
 
     except Exception as e:
@@ -52,3 +53,13 @@ def search(request):
         return JsonResponse({'status': 500, 'body': response})
 
 
+def poi_filter(request):
+
+    poi_name = request['poi_name']
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+
+    docs = poiFilter(query, poi_name)
+
+    return docs
