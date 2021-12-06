@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core_module.search.search import getTweet, poiFilter, topicFilter, langFilter
+from core_module.search.search import getTweet, poiFilter, topicFilter, langFilter, countryFilter
 from core_module.search_analytics.dynamic_analyzer import DynamicAnalyzer
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -102,8 +102,21 @@ def topic_filter(request):
     query = request['query']
     query = query.replace(":", "\:")
     query = urllib.parse.quote(query, safe='')
-    print(query)
+
     docs = poiFilter(query, poi_name)
+
+    return JsonResponse({'status': 200, 'body': docs})
+
+def country_filter(request):
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
+    print(request)
+    country = request['country']
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+
+    docs = countryFilter(query, country)
 
     return JsonResponse({'status': 200, 'body': docs})
 

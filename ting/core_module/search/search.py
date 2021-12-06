@@ -47,6 +47,16 @@ def topicFilter(query, topic):
     docs = json.load(data)['response']['docs']
     return docs
 
+def countryFilter(query, country):
+    ip = '18.118.247.209'
+    topic = country.replace(' ', '%20')
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+    inurl = f'http://{ip}:8983/solr/IRF21P3/select?defType=edismax&q.op=OR&q={query}&qf=tweet_text&rows=500&fq=topic%3A%22{country}%22'
+    data = urllib.request.urlopen(inurl)
+    docs = json.load(data)['response']['docs']
+    return docs
+
 
 
 
