@@ -98,7 +98,7 @@ class DynamicAnalyzer:
                 dict_list+=x
 
         count = Counter(dict_list)
-        count = {k: v for k, v in sorted(count.items(), key=lambda x: x[1], reverse=True)[:20]}
+        count = {k: v for k, v in sorted(count.items(), key=lambda x: x[1], reverse=True)[:50]}
         result = []
         for key in count.keys():
             d = {'text': key, 'value': count[key]}
