@@ -54,12 +54,14 @@ def search(request):
 
 
 def poi_filter(request):
-
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
+    print(request)
     poi_name = request['poi_name']
     query = request['query']
     query = query.replace(":", "\:")
     query = urllib.parse.quote(query, safe='')
-
+    print(query)
     docs = poiFilter(query, poi_name)
 
-    return docs
+    return JsonResponse({'status': 200, 'body': docs})
