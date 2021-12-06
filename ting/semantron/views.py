@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from core_module.search.search import getTweet, poiFilter
+from core_module.search.search import getTweet, poiFilter, topicFilter, langFilter
 from core_module.search_analytics.dynamic_analyzer import DynamicAnalyzer
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -56,6 +56,47 @@ def search(request):
 def poi_filter(request):
     body = request.body.decode('utf-8')
     request = json.loads(body)
+
+    poi_name = request['poi_name']
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+    docs = poiFilter(query, poi_name)
+
+    return JsonResponse({'status': 200, 'body': docs})
+
+def lang_filter(request):
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
+
+    lang = request['lang']
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+
+    docs = langFilter(query, lang)
+
+    return JsonResponse({'status': 200, 'body': docs})
+
+def topic_filter(request):
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
+
+    topic = request['topic']
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+
+    docs = topicFilter(query, topic)
+
+    return JsonResponse({'status': 200, 'body': docs})
+
+
+
+
+def topic_filter(request):
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
     print(request)
     poi_name = request['poi_name']
     query = request['query']
@@ -65,3 +106,5 @@ def poi_filter(request):
     docs = poiFilter(query, poi_name)
 
     return JsonResponse({'status': 200, 'body': docs})
+
+
