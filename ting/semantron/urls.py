@@ -11,5 +11,4 @@ urlpatterns = [
     url(r'^filter/lang/', csrf_exempt(lang_filter), name='Filter for Language'),
     url(r'^filter/topic/', csrf_exempt(topic_filter), name='Filter for Topic'),
     url(r'^filter/country/', csrf_exempt(country_filter), name='Filter for Topic')
-
 ]

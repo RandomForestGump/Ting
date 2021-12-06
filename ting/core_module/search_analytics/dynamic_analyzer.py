@@ -9,6 +9,7 @@ class DynamicAnalyzer:
         self.poi_list = []
         self.thresh = 0.05
         self.k = 2
+
     def get_tweet_types(self):
 
         '''
@@ -97,6 +98,7 @@ class DynamicAnalyzer:
                 dict_list+=x
 
         count = Counter(dict_list)
+        count = {k: v for k, v in sorted(count.items(), key=lambda x: x[1], reverse=True)[:25]}
         result = []
         for key in count.keys():
             d = {'type': key, 'value': count[key]}

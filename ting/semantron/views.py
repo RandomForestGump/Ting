@@ -68,8 +68,8 @@ def poi_filter(request):
 def lang_filter(request):
     body = request.body.decode('utf-8')
     request = json.loads(body)
-
-    lang = request['lang']
+    print(request)
+    lang = request['lang'] #en, hi ,es
     query = request['query']
     query = query.replace(":", "\:")
     query = urllib.parse.quote(query, safe='')
@@ -81,7 +81,7 @@ def lang_filter(request):
 def topic_filter(request):
     body = request.body.decode('utf-8')
     request = json.loads(body)
-
+    print(request)
     topic = request['topic']
     query = request['query']
     query = query.replace(":", "\:")
@@ -92,18 +92,16 @@ def topic_filter(request):
     return JsonResponse({'status': 200, 'body': docs})
 
 
-
-
 def topic_filter(request):
     body = request.body.decode('utf-8')
     request = json.loads(body)
     print(request)
-    poi_name = request['poi_name']
+    topic = request['topic']
     query = request['query']
     query = query.replace(":", "\:")
     query = urllib.parse.quote(query, safe='')
 
-    docs = poiFilter(query, poi_name)
+    docs = topicFilter(query, topic)
 
     return JsonResponse({'status': 200, 'body': docs})
 
