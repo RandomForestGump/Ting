@@ -1,3 +1,13 @@
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -9,6 +19,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { urlRoutesConstants } from "./utility/constants/urlRoutesConstants";
 import rawfile from "./pages/rawfile"
 import newfile from "./pages/newfile"
+import 'devextreme/dist/css/dx.light.css';
+
 
 function Copyright() {
   return (
