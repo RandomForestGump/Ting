@@ -53,7 +53,45 @@ def search(request):
         return JsonResponse({'status': 500, 'body': response})
 
 
+def filtering(request):
+
+    body = request.body.decode('utf-8')
+    request = json.loads(body)
+    print(request)
+    arg = request['type']
+    entity = request[arg]
+    query = request['query']
+    query = query.replace(":", "\:")
+    query = urllib.parse.quote(query, safe='')
+
+    if arg == 'poi_name':
+
+        docs = poiFilter(query, entity)
+        return JsonResponse({'status': 200, 'body': docs})
+
+    elif arg == 'lang_type':
+
+        docs = langFilter(query, entity)
+        return JsonResponse({'status': 200, 'body': docs})
+
+    elif arg == 'topic_name':
+
+        docs = topicFilter(query, entity)
+        return JsonResponse({'status': 200, 'body': docs})
+
+    elif arg == 'country_name':
+
+        docs = countryFilter(query, entity)
+        return JsonResponse({'status': 200, 'body': docs})
+
+    else:
+        response = {"message": "Wrong argument presented"}
+        return JsonResponse({'status': 500, 'body': response})
+
+
+
 def poi_filter(request):
+    print()
     body = request.body.decode('utf-8')
     request = json.loads(body)
 
@@ -92,18 +130,6 @@ def topic_filter(request):
     return JsonResponse({'status': 200, 'body': docs})
 
 
-def topic_filter(request):
-    body = request.body.decode('utf-8')
-    request = json.loads(body)
-    print(request)
-    topic = request['topic']
-    query = request['query']
-    query = query.replace(":", "\:")
-    query = urllib.parse.quote(query, safe='')
-
-    docs = topicFilter(query, topic)
-
-    return JsonResponse({'status': 200, 'body': docs})
 
 def country_filter(request):
     body = request.body.decode('utf-8')
