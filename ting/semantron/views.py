@@ -20,7 +20,7 @@ def search(request):
         docs = getTweet(query)
 
         if len(docs) == 0:
-            result['documents'] = None
+            result['documents'] = []
             return JsonResponse({'status': 200, 'body': result})
 
         else:
