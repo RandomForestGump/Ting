@@ -15,6 +15,7 @@ import RandomDataService from "../Services/randomData/randomDataService"
 // import { store } from "../../redux-store/store";
 // import { useDispatch, useSelector } from "react-redux";
 // import { DCFACTIONCODE } from "../../utility/constants/utilityConstants";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, BarChart, Legend, Tooltip, Bar, PieChart, Pie } from 'recharts';
 
 import Paper from '@mui/material/Paper';
 import {
@@ -52,6 +53,24 @@ import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 // import { makeStyles } from '@bit/mui-org.material-ui.styles';
 import WordCloud from 'react-d3-cloud';
+// import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CssBaseline from '@mui/material/CssBaseline';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -151,7 +170,12 @@ class rawfile extends Component {
             poi: '',
             getmyPoiData: '',
             keywords: '',
-            extreme: ''
+            extreme: '',
+            lang_type: '',
+            country: '',
+            topic: '',
+            filter_type: '',
+            tweet_sentiment: ''
 
         }
         this.RandomDataService = new RandomDataService()
@@ -208,10 +232,58 @@ class rawfile extends Component {
     }
 
     onPoiNameChange = (event) => {
-        debugger
+        // debugger
         console.log(event, "<----on poi change")
         this.setState({
-            poi: event.target.value
+            poi: event.target.value,
+            filter_type: "poi_name"
+
+        })
+        // this.getPoiData()
+    }
+
+    onLangTypeChange = (event) => {
+        debugger
+        console.log(event, "<----on lang type change")
+        this.setState({
+            lang_type: event.target.value,
+            filter_type: "lang_type"
+
+        })
+        // this.getPoiData()
+    }
+
+    onCountryChange = (event) => {
+        // debugger
+        console.log(event, "<----on country change")
+        this.setState({
+            country: event.target.value,
+            filter_type: "country_name"
+
+        })
+        // this.getPoiData()
+    }
+
+    onTopicNameChange = (event) => {
+        // debugger
+        console.log(event, "<----on topic change")
+        this.setState({
+            topic: event.target.value,
+            filter_type: "topic_name"
+
+        })
+        // this.getPoiData()
+    }
+
+    onClearData = (event) => {
+        // debugger
+        // console.log(event, "<----on topic change")
+        this.setState({
+            poi: '',
+            lang_type: '',
+            topic: '',
+            country: ''
+
         })
         // this.getPoiData()
     }
@@ -227,11 +299,15 @@ class rawfile extends Component {
     //   });
 
     async getPoiData() {
-        debugger
+        // debugger
         // const merchantId = this.props.usersData ? this.props.usersData.user.MerchantId : null
         const data = {
             "query": this.state.query_term,
-            "poi_name": this.state.poi
+            "type": this.state.filter_type,
+            "poi_name": this.state.poi,
+            "lang_type": this.state.lang_type,
+            "country": this.state.country,
+            "topic": this.state.topic
         };
         try {
             const poiData = await this.RandomDataService.getPoiData(data);
@@ -263,7 +339,8 @@ class rawfile extends Component {
                 poi_data: randomData.data.body.poi_dist,
                 tweet_type: randomData.data.body.tweet_type,
                 keywords: randomData.data.body.keywords,
-                extreme: randomData.data.body.extreme
+                extreme: randomData.data.body.extreme,
+                tweet_sentiment: randomData.data.body.tweet_sentiment
                 // tweet_data: [
                 //     { tweet_1: randomData.data.body.documents[0].tweet_text },
                 //     ...this.state.tweet_data]
@@ -286,7 +363,28 @@ class rawfile extends Component {
                     //     </td>
                     // </tr>
                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                        <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} </TableCell>
+                        {/* <CssBaseline /> */}
+                        <ListItem >
+                            <ListItemAvatar>
+                                <Avatar alt="Profile Picture" src={this.state.poi} />
+                            </ListItemAvatar>
+                            <ListItemText primary={"tweet user"} secondary={item.tweet_text} />
+                        </ListItem>
+                        {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
+                        <Box sx={{ width: 500, maxHeight: 50 }}>
+                            <BottomNavigation
+                                showLabels
+                            // value={value}
+                            // onChange={(event, newValue) => {
+                            //     setValue(newValue);
+                            // }}
+                            >
+                                <BottomNavigationAction label="Sentiments" icon={<RestoreIcon />} />
+                                <BottomNavigationAction label="share" icon={<LocationOnIcon />} />
+                                <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
+                            </BottomNavigation>
+                        </Box>
+                        {/* </TableCell> */}
                     </TableRow>
                 );
             })
@@ -295,41 +393,113 @@ class rawfile extends Component {
     renderPoiTweetList = () => {
         return this.state.getmyPoiData &&
             this.state.getmyPoiData.data &&
-            // this.state.getmyPoiData.data.body &&
             this.state.getmyPoiData.data.body.map((item, index) => {
                 return (
-                    // <tr key={index} >
-                    //     <td style={style}>
-                    //         {item.tweet_text ? item.tweet_text : '_'}
-                    //     </td>
-                    // </tr>
+
                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                        <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} </TableCell>
+                        <ListItem >
+                            <ListItemAvatar>
+                                <Avatar alt="Profile Picture" src={item.poi_name} />
+                            </ListItemAvatar>
+                            {item.poi_name ?
+                                <ListItemText primary={item.poi_name} secondary={item.tweet_text} /> :
+                                <ListItemText primary={"tweet user"} secondary={item.tweet_text} />
+                            }
+                        </ListItem>
+                        <Box sx={{ width: 500, maxHeight: 50 }}>
+                            <BottomNavigation
+                                showLabels
+                            // value={value}
+                            // onChange={(event, newValue) => {
+                            //     setValue(newValue);
+                            // }}
+                            >
+                                <BottomNavigationAction label="Sentiments" icon={<RestoreIcon />} />
+                                <BottomNavigationAction label="share" icon={<LocationOnIcon />} />
+                                <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
+                            </BottomNavigation>
+                        </Box>
+                        {/* </TableCell> */}
                     </TableRow>
                 );
             })
     }
 
+    // renderLangtypeList = () => {
+    //     return this.state.getmyPoiData &&
+    //         this.state.getmyPoiData.data &&
+    //         this.state.getmyPoiData.data.body.map((item, index) => {
+    //             return (
+
+    //                 <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+    //                     <ListItem >
+    //                         <ListItemAvatar>
+    //                             <Avatar alt="Profile Picture" src={item.poi_name} />
+    //                         </ListItemAvatar>
+    //                         <ListItemText primary={item.poi_name} secondary={item.tweet_text} />
+    //                     </ListItem>
+    //                     <Box sx={{ width: 500, maxHeight: 50 }}>
+    //                         <BottomNavigation
+    //                             showLabels
+    //                         // value={value}
+    //                         // onChange={(event, newValue) => {
+    //                         //     setValue(newValue);
+    //                         // }}
+    //                         >
+    //                             <BottomNavigationAction label="Sentiments" icon={<RestoreIcon />} />
+    //                             <BottomNavigationAction label="share" icon={<LocationOnIcon />} />
+    //                             <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
+    //                         </BottomNavigation>
+    //                     </Box>
+    //                     {/* </TableCell> */}
+    //                 </TableRow>
+    //             );
+    //         })
+    // }
+
     renderExtreame = () => {
         debugger
         return this.state.extreme && this.state.extreme.map((item, index) => {
-                return (
-                    // <tr key={index} >
-                    //     <td style={style}>
-                    //         {item.tweet_text ? item.tweet_text : '_'}
-                    //     </td>
-                    // </tr>
-                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                        <TableCell key={item} > {item ? item : '_'} </TableCell>
-                    </TableRow>
-                );
-            })
+            return (
+
+                // <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                //     <TableCell key={item} > {item ? item : '_'} </TableCell>
+                // </TableRow>
+
+                <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                    {/* <CssBaseline /> */}
+                    <ListItem >
+                        <ListItemAvatar>
+                            <Avatar alt="Profile Picture" src={this.state.poi} />
+                        </ListItemAvatar>
+                        <ListItemText primary={"tweet user"} secondary={item} />
+                    </ListItem>
+                    {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
+                    <Box sx={{ width: 400, maxHeight: 50 }}>
+                        <BottomNavigation
+                            showLabels
+                        // value={value}
+                        // onChange={(event, newValue) => {
+                        //     setValue(newValue);
+                        // }}
+                        >
+                            <BottomNavigationAction label="Sentiments" icon={<RestoreIcon />} />
+                            <BottomNavigationAction label="share" icon={<LocationOnIcon />} />
+                            <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
+                        </BottomNavigation>
+                    </Box>
+                    {/* </TableCell> */}
+                </TableRow>
+            );
+        })
     }
 
     render() {
         // console.log(this.props,this.event,"<----")
         console.log(this.state.query_term, "<---- value")
         console.log(this.state.poi, "<----poi value")
+        console.log(this.state.lang_type, "<----lang type")
+        console.log(this.state.filter_type, "<----filter value")
         console.log(this.state.getmydata, "<---- value")
 
         console.log(chart_Data, "<---- chart_Data")
@@ -339,17 +509,7 @@ class rawfile extends Component {
         console.log(this.state.tweet_type, "<---- type_Data")
 
         console.log(this.state.tweet_data, "<---- tweet_Data")
-        // console.log(this.state.getmydata.data.body.poi_dist, "<---- chart_Data")
 
-        // const chartData = this.state.getmydata &&
-        // this.state.getmydata.data &&
-        // this.state.getmydata.data.body &&
-        //  this.state.getmydata.data.body.poi_dist ? this.state.poi_data : chart_Data 
-
-        //  console.log(chartData, "<---- chartData")
-        // const { chart_Data: chartData } = this.state;
-
-        // const chartData = this.state.chart_Data
         const chartData = this.state.poi_data ? this.state.poi_data : this.state.chart_Data
         const chartData_1 = this.state.tweet_type ? this.state.tweet_type : this.state.pie_data
         console.log(chartData_1, "<---- chart_Data")
@@ -359,21 +519,38 @@ class rawfile extends Component {
         console.log(keywords, "<---- keywords")
         const extreme = this.state.extreme ? this.state.extreme : null
         console.log(extreme, "<---- extreme")
+        const tweet_sentiment = this.state.tweet_sentiment ? this.state.tweet_sentiment : null
         // const tweet = this.state.getmydata.data.body.documents[0].tweet_text ? this.state.getmydata.data.body.documents.tweet_text : null
         return (
 
             <div style={{ textAlign: "center" }} >
 
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography variant="h4" align='left' component="div" sx={{ flexGrow: 4 }}>
+                            Ting
+          </Typography>
 
+                    </Toolbar>
+                </AppBar>
 
                 <Grid container spacing={2}>
 
                     <Grid item xs={10}>
 
                         <p className='currency-pay-body'>
-                            //   Please Enter your search
+                            Please Enter your search
       </p>
-                        <Row>
+                        <Row align="centre">
                             <Col xs="4">
                                 <TextField
                                     variant="outlined"
@@ -421,15 +598,7 @@ class rawfile extends Component {
 
 
                         <TableCell style={{ minWidth: 450 }} align='center'> filter </TableCell>
-                        {/* <Container>
-                        <ButtonDropdown isOpen={false} toggle={this.toggle}>
-                            <DropdownToggle>1</DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem onClick={this.onPoiNameChange}>Narendra Modi</DropdownItem>
-                                <DropdownItem onClick={this.onPoiNameChange}>Contact</DropdownItem>
-                            </DropdownMenu>
-                        </ButtonDropdown>
-                        </Container> */}
+
                         <TableRow>
                             <FormControl variant="standard" sx={{ m: 1, width: 250 }}>
                                 <InputLabel id="demo-controlled-open-select-label">POI</InputLabel>
@@ -464,8 +633,8 @@ class rawfile extends Component {
                                     // onClose={handleClose}
                                     // onOpen={this.getPoiData}
                                     // onClick={this.getPoiData}
-                                    value={this.state.poi}
-                                    onChange={this.onPoiNameChange}
+                                    value={this.state.lang_type}
+                                    onChange={this.onLangTypeChange}
                                 >
                                     {/* <MenuItem value="Narendra Modi">
                                     <em>None</em>
@@ -487,8 +656,8 @@ class rawfile extends Component {
                                     // onClose={handleClose}
                                     // onOpen={this.getPoiData}
                                     // onClick={this.getPoiData}
-                                    value={this.state.poi}
-                                    onChange={this.onPoiNameChange}
+                                    value={this.state.country}
+                                    onChange={this.onCountryChange}
                                 >
                                     {/* <MenuItem value="Narendra Modi">
                                     <em>None</em>
@@ -510,8 +679,8 @@ class rawfile extends Component {
                                     // onClose={handleClose}
                                     // onOpen={this.getPoiData}
                                     // onClick={this.getPoiData}
-                                    value={this.state.poi}
-                                    onChange={this.onPoiNameChange}
+                                    value={this.state.topic}
+                                    onChange={this.onTopicNameChange}
                                 >
                                     {/* <MenuItem value="Narendra Modi">
                                     <em>None</em>
@@ -536,27 +705,26 @@ class rawfile extends Component {
                         >
                             <i className='fa fa-chevron-left' /> Search
                 </Button1>
+
+                        <Button1
+                            // className='cancel-btn'
+                            // variant="contained"
+                            //   style={{ fontSize: '14px', paddingTop: '15%' }}
+                            id='getdata1'
+                            onClick={() => this.onClearData()}
+                        >
+                            <i className='fa fa-chevron-left' /> Clear
+                </Button1>
                         <Grid>
 
-                        
 
-                        <TableCell style={{ minWidth: 400 }} align='center'>
-                            Extreame
+
+                            <TableCell style={{ minWidth: 400 }} align='center'>
+                                Extreme
                                                 </TableCell>
-                                                {extreme?  this.renderExtreame() :null}
-                        {/* <TableCell style={{ minWidth: 400 }} align='center'>
-                            {extreme.positive_tweets[0]}
-                        </TableCell>
-                        <TableCell style={{ minWidth: 400 }} align='center'>
-                            {extreme.positive_tweets[1]}
-                        </TableCell>
-                        <TableCell style={{ minWidth: 400 }} align='center'>
-                            {extreme.negative_tweets[0]}
-                        </TableCell>
-                        <TableCell style={{ minWidth: 400 }} align='center'>
-                            {extreme.negative_tweets[1]}
-                        </TableCell> */}
-</Grid>
+                            {extreme ? this.renderExtreame() : null}
+                            
+                        </Grid>
 
                     </Grid>
 
@@ -583,55 +751,63 @@ class rawfile extends Component {
 
                     </Grid>
                     <Grid item xs={4}>
-                        <TableCell style={{ minWidth: 500 }} align='center'> chart </TableCell>
+                        <TableCell style={{ minWidth: 500 }} align='center'> Analysis </TableCell>
                         {/* <Item>xs=4</Item> */}
 
                         {this.state.keywords ?
-                            <ReactWordcloud words={keywords} size={[60, 40]} options={{
-                                fontFamily: 'courier new',
-                                fontSizes: [10, 40]
-                            }}
-                            /> : null}
+                            <Grid>
+                                <TableCell style={{ minWidth: 300 }} align='center'> Word Cloud </TableCell>
+                                <ReactWordcloud words={keywords} size={[60, 40]} options={{
+                                    fontFamily: 'courier new',
+                                    fontSizes: [10, 40]
+                                }} />
+                            </Grid>
+                            : null}
 
                         {/* {this.state.keywords ?
                    <WordCloud data={keywords} /> : null} */}
 
+                        {this.state.tweet_sentiment ?
+                            <Grid><TableCell style={{ minWidth: 500 }} align='center'> Tweet Sentiments </TableCell>
+                                <BarChart width={500} height={250} data={tweet_sentiment}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="type" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="percent" fill="#8884d8" />
+                                    {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
+                                </BarChart>
+
+                            </Grid>
+                            : null}
+
 
                         {this.state.poi_data ?
-                            <Paper>
-                                <Chart
-                                    data={chartData}
-                                >
-                                    <ArgumentAxis />
-                                    <ValueAxis max={2} />
 
-                                    <BarSeries
-                                        // valueField="population"
-                                        // argumentField="year"
-                                        valueField="percent"
-                                        argumentField="poi_name"
-                                    />
-                                    <Title text="POI graph" />
-                                    <Animation />
-                                </Chart>
-                            </Paper>
+
+                            <Grid><TableCell style={{ minWidth: 500 }} align='center'> POI data </TableCell>
+                                <BarChart width={730} height={250} data={chartData}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="poi_name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="percent" fill="#8884d8" />
+                                    {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
+                                </BarChart>
+                            </Grid>
                             : null}
                         {this.state.tweet_type ?
-                            <Paper>
-                                <Chart
-                                    data={chartData_1}
-                                >
-                                    <PieSeries
-                                        valueField="percent"
-                                        argumentField="type"
-                                        innerRadius={0.7}
-                                    />
-                                    <Title
-                                        text="Type graph"
-                                    />
-                                    <Animation />
-                                </Chart>
-                            </Paper>
+
+                            <Grid>
+                                <TableCell style={{ minWidth: 500 }} align='center'> Type </TableCell>
+                                <PieChart width={500} height={350}>
+                                    <Pie data={chartData_1} dataKey="percent" nameKey="type" cx="50%" cy="50%" outerRadius={80} fill="#8884d8" label />
+                                    <Tooltip />
+                                    {/* <Pie data={data02} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label /> */}
+                                </PieChart>
+                            </Grid>
                             : null}
 
 

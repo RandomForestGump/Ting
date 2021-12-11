@@ -17,8 +17,8 @@ export default class randomDataServicde {
   public async getPoiData(data:any) {
     // console.log(data,"<---- data")
     // console.log(JSON.stringify(data),"<----x")
-    // debugger
-    return this.dataProvider.PostData(`api/filter/poi/`,data)
+    debugger
+    return this.dataProvider.PostData(`api/filter/filter/`,data)
   }
 
 }
