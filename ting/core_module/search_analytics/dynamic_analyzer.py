@@ -139,5 +139,6 @@ class DynamicAnalyzer:
 
         antiVacTweets = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])[:5]}
 
-        result = [{'antivaccine_tweets':antiVacTweets}]
+        result = [{'antivaccine_tweets':list(antiVacTweets.keys())}]
+        print(result)
         return result
