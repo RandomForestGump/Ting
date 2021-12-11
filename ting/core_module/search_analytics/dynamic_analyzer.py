@@ -121,7 +121,7 @@ class DynamicAnalyzer:
         pos_ex = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse = True)[:self.k]}
         neg_ex = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])[:self.k]}
         # res = list(pos_ex.keys()) + list(neg_ex.keys())
-        result = {'positive_tweets': pos_ex, 'negative_tweets': neg_ex}
+        result = {'positive_tweets': list(pos_ex.keys()), 'negative_tweets': list(neg_ex.keys())}
 
         return result
 
