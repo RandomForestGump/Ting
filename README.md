@@ -1,2 +1,0 @@
-# Ting
-IR Search Engine
