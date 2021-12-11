@@ -125,6 +125,15 @@ const darkTheme = createTheme({
   },
 });
 
+const darkTheme1 = createTheme({
+    palette: {
+      mode: 'dark',
+      primary: {
+        main: "#0097a7",
+      },
+    },
+  });
+
 const buttonTheme = createTheme({
   palette: {
     mode: "dark",
@@ -179,20 +188,17 @@ const words = [
 
 // const classes = useStyles();
 
-const OptimizedComponent = React.memo(({id,poi,tweet_text})=>{
-    return (<TableRow hover role="checkbox" tabIndex={-1} key={id}>
-            
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar alt="Profile Picture" src={poi} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={"tweet user"}
-                secondary={tweet_text}
-              />
-            </ListItem>
-            {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
-            {/* <Box sx={{ width: 500, maxHeight: 50 }}>
+const OptimizedComponent = React.memo(({ id, poi, tweet_text }) => {
+  return (
+    <TableRow hover role="checkbox" tabIndex={-1} key={id}>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar alt="Profile Picture" src={poi} />
+        </ListItemAvatar>
+        <ListItemText primary={poi || "tweet user"} secondary={tweet_text} />
+      </ListItem>
+      {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
+      {/* <Box sx={{ width: 500, maxHeight: 50 }}>
               <BottomNavigation
                 showLabels
                 // value={value}
@@ -201,9 +207,10 @@ const OptimizedComponent = React.memo(({id,poi,tweet_text})=>{
                 // }}
               ></BottomNavigation>
             </Box> */}
-            {/* </TableCell> */}
-          </TableRow>)
-})
+      {/* </TableCell> */}
+    </TableRow>
+  );
+});
 
 const BottomShit = React.memo(() => {
   return (
@@ -438,19 +445,30 @@ class rawfile extends Component {
   }
 
   renderTweetList = () => {
-    return (
-      this.state.getmydata?.data?.body?.documents?.map((item, index) => {
-        return <OptimizedComponent poi={item.poi} tweet_text={item.tweet_text} id={item.id}/>;
-      })
-    );
+    return this.state.getmydata?.data?.body?.documents?.map((item, index) => {
+      return (
+        <OptimizedComponent
+          poi={item.poi}
+          tweet_text={item.tweet_text}
+          id={item.id}
+        />
+      );
+    });
   };
 
   renderPoiTweetList = () => {
+    //   debugger
     return (
       this.state.getmyPoiData &&
       this.state.getmyPoiData.data &&
       this.state.getmyPoiData.data.body.map((item) => {
-        return <OptimizedComponent poi={item.poi} tweet_text={item.tweet_text} id={item.id}/>;
+        return (
+          <OptimizedComponent
+            poi={item.poi_name}
+            tweet_text={item.tweet_text}
+            id={item.id}
+          />
+        );
       })
     );
   };
@@ -508,7 +526,7 @@ class rawfile extends Component {
               <ListItemText primary={"tweet user"} secondary={item} />
             </ListItem>
             {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
-            <Box sx={{ width: 400, maxHeight: 50 }}>
+            {/* <Box sx={{ width: 400, maxHeight: 50 }}>
               <BottomNavigation
                 showLabels
                 // value={value}
@@ -526,7 +544,7 @@ class rawfile extends Component {
                 />
                 <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
               </BottomNavigation>
-            </Box>
+            </Box> */}
             {/* </TableCell> */}
           </TableRow>
         );
@@ -555,7 +573,7 @@ class rawfile extends Component {
               <ListItemText primary={"tweet user"} secondary={item} />
             </ListItem>
             {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
-            <Box sx={{ width: 400, maxHeight: 50 }}>
+            {/* <Box sx={{ width: 400, maxHeight: 50 }}>
               <BottomNavigation
                 showLabels
                 // value={value}
@@ -573,7 +591,7 @@ class rawfile extends Component {
                 />
                 <BottomNavigationAction label="likes" icon={<FavoriteIcon />} />
               </BottomNavigation>
-            </Box>
+            </Box> */}
             {/* </TableCell> */}
           </TableRow>
         );
@@ -604,7 +622,7 @@ class rawfile extends Component {
                 <ListItemText primary={"tweet user"} secondary={item} />
               </ListItem>
               {/* <TableCell key={item.tweet_text} > {item.tweet_text ? item.tweet_text : '_'} */}
-              <Box sx={{ width: 400, maxHeight: 50 }}>
+              {/* <Box sx={{ width: 400, maxHeight: 50 }}>
                 <BottomNavigation
                   showLabels
                   // value={value}
@@ -625,7 +643,7 @@ class rawfile extends Component {
                     icon={<FavoriteIcon />}
                   />
                 </BottomNavigation>
-              </Box>
+              </Box> */}
               {/* </TableCell> */}
             </TableRow>
           );
@@ -773,10 +791,15 @@ class rawfile extends Component {
 
           <Grid item xs={3}>
             <TableHead>
+            
               <TableCell style={{ minWidth: 450 }} align="center">
+              <ThemeProvider theme={darkTheme1}>
+              <AppBar position="static">Filter</AppBar>
                 {" "}
-                Filter{" "}
+                {" "}
+                </ThemeProvider>
               </TableCell>
+              
             </TableHead>
             <TableRow>
               <FormControl variant="standard" sx={{ m: 1, width: 250 }}>
@@ -903,25 +926,40 @@ class rawfile extends Component {
             >
               <i className="fa fa-chevron-left" /> Clear
             </Button1>
-            <Grid>
-              <TableCell style={{ minWidth: 400 }} align="center">
-                Positive Extreme
-              </TableCell>
-              {extreme ? this.renderPositiveExtreame() : null}
-            </Grid>
-            <Grid>
-              <TableCell style={{ minWidth: 400 }} align="center">
-                Negative Extreme
-              </TableCell>
-              {extreme ? this.renderNegativeExtreame() : null}
-            </Grid>
+            {extreme ? (
+              <Grid>
+                 <TableCell style={{ minWidth: 400 }} align="center">
+                   <AppBar position="static">Positive Extreme </AppBar>
+                   </TableCell>
+                {/* <TableCell style={{ minWidth: 400 }} align="center">
+                  Positive Extreme
+                </TableCell> */}
+                {this.renderPositiveExtreame()}
+              </Grid>
+            ) : null}
+            {extreme ? (
+              <Grid>
+                   <TableCell style={{ minWidth: 400 }} align="center">
+                   <AppBar position="static">Negative Extreme </AppBar>
+                   </TableCell>
+                {/* <TableCell style={{ minWidth: 400 }} align="center">
+                  Negative Extreme
+                </TableCell> */}
+                {this.renderNegativeExtreame()}
+              </Grid>
+            ) : null}
 
-            <Grid>
-              <TableCell style={{ minWidth: 400 }} align="center">
-                Sentiment tweets
-              </TableCell>
-              {antivaccine_tweets ? this.renderSentimentTweets() : null}
-            </Grid>
+            {antivaccine_tweets ? (
+              <Grid>
+                  <TableCell style={{ minWidth: 400 }} align="center">
+                  <AppBar position="static">Sentiment tweets </AppBar>
+                  </TableCell>
+                {/* <TableCell style={{ minWidth: 400 }} align="center">
+                  Sentiment tweets
+                </TableCell> */}
+                {this.renderSentimentTweets()}
+              </Grid>
+            ) : null}
           </Grid>
 
           <Grid item xs={5}>
@@ -932,7 +970,9 @@ class rawfile extends Component {
                     <TableHead>
                       <TableRow>
                         <TableCell style={{ minWidth: 170 }} align="center">
-                          Tweet Text
+                        <ThemeProvider theme={darkTheme1}>
+                        <AppBar position="static">Tweet Text </AppBar>
+                          </ThemeProvider>
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -943,7 +983,9 @@ class rawfile extends Component {
                       this.state.getmydata.data.body.documents
                         ? this.renderTweetList()
                         : "No data"} */}
-                      {this.state.getmyPoiData ? this.renderPoiTweetList() : this.renderTweetList()}
+                      {this.state.getmyPoiData
+                        ? this.renderPoiTweetList()
+                        : this.renderTweetList()}
                     </TableBody>
                   </Table>
                 </TableContainer>
@@ -952,10 +994,12 @@ class rawfile extends Component {
           </Grid>
           <Grid item xs={4}>
             <TableHead>
+            <ThemeProvider theme={darkTheme1}>
               <TableCell style={{ minWidth: 500 }} align="center">
+              <AppBar position="static">Analysis</AppBar>
                 {" "}
-                Analysis{" "}
-              </TableCell>{" "}
+                {" "}
+              </TableCell>{" "}</ThemeProvider>
             </TableHead>
             {/* <Item>xs=4</Item> */}
 
@@ -964,7 +1008,8 @@ class rawfile extends Component {
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
-                    Word Cloud{" "}
+                    <AppBar position="static">Word Cloud{" "}</AppBar>
+                    
                   </TableCell>{" "}
                 </TableHead>
                 {/* <Row align="centre"> */}
@@ -998,9 +1043,11 @@ class rawfile extends Component {
                 {" "}
                 <TableHead>
                   {" "}
+                  
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
-                    Tweet Sentiments{" "}
+                    <AppBar position="static">Tweet Sentiments{" "}</AppBar>
+                    
                   </TableCell>{" "}
                 </TableHead>
                 <BarChart width={500} height={250} data={tweet_sentiment}>
@@ -1021,7 +1068,8 @@ class rawfile extends Component {
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
-                    POI data{" "}
+                    <AppBar position="static"> POI data{" "}</AppBar>
+                   
                   </TableCell>
                 </TableHead>
                 <BarChart width={630} height={250} data={chartData}>
@@ -1040,7 +1088,8 @@ class rawfile extends Component {
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
-                    Type{" "}
+                    <AppBar position="static"> Tweet type{" "}</AppBar>
+                   
                   </TableCell>
                 </TableHead>
                 <PieChart width={500} height={350}>
