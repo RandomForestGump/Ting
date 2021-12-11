@@ -11,7 +11,7 @@ const SESSION_EXPIRED = 'Expired';
 export class DataProvider {
 
   constructor() {
-    this._baseUrl = "http://3.145.118.107:8000";
+    this._baseUrl = "http://3.129.8.62:8000";
 
     // this.getAuthHeader = () => {
     //   try {
