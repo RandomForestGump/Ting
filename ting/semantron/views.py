@@ -21,6 +21,14 @@ def search(request):
 
         if len(docs) == 0:
             result['documents'] = []
+
+            result['tweet_type'] = []
+            result['poi_dist'] = []
+            result['keywords'] = []
+            result['antivaccine_tweets'] = []
+            result['extreme'] = []
+            result['tweet_sentiment'] = []
+
             return JsonResponse({'status': 200, 'body': result})
 
         else:
