@@ -59,35 +59,33 @@ def filtering(request):
     request = json.loads(body)
     print(request)
     arg = request['type']
-    entity = request[arg]
     query = request['query']
     query = query.replace(":", "\:")
     query = urllib.parse.quote(query, safe='')
 
     if arg == 'poi_name':
-
+        entity = request['poi_name']
         docs = poiFilter(query, entity)
         return JsonResponse({'status': 200, 'body': docs})
 
     elif arg == 'lang_type':
-
+        entity = request['lang_type']
         docs = langFilter(query, entity)
         return JsonResponse({'status': 200, 'body': docs})
 
     elif arg == 'topic_name':
-
+        entity = request['topic']
         docs = topicFilter(query, entity)
         return JsonResponse({'status': 200, 'body': docs})
 
     elif arg == 'country_name':
-
+        entity = request['country']
         docs = countryFilter(query, entity)
         return JsonResponse({'status': 200, 'body': docs})
 
     else:
         response = {"message": "Wrong argument presented"}
         return JsonResponse({'status': 500, 'body': response})
-
 
 
 def poi_filter(request):
