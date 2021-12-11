@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { urlRoutesConstants } from "./utility/constants/urlRoutesConstants";
 import rawfile from "./pages/rawfile"
 import newfile from "./pages/newfile"
+// import landingpage from "./pages/newfile"
 import 'devextreme/dist/css/dx.light.css';
 
 
