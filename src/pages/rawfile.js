@@ -730,8 +730,8 @@ class rawfile extends Component {
         </ThemeProvider>
 
         <Grid container spacing={2}>
-          <Grid item xs={10}>
-            <p className="currency-pay-body">{/* Please enter your query */}</p>
+          <Grid item spacing={2}>
+            <p className="body">{/* Please enter your query */}</p>
             <Row align="centre">
               {/* <Grid item xs={1}>hi</Grid> */}
               {/* <Col></Col> */}
@@ -789,7 +789,7 @@ class rawfile extends Component {
             </Row>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item spacing={2} xs={3}>
             <TableHead>
             
               <TableCell style={{ minWidth: 450 }} align="center">
@@ -927,7 +927,7 @@ class rawfile extends Component {
               <i className="fa fa-chevron-left" /> Clear
             </Button1>
             {extreme ? (
-              <Grid>
+              <Grid spacing={2}>
                  <TableCell style={{ minWidth: 400 }} align="center">
                    <AppBar position="static">Positive Extreme </AppBar>
                    </TableCell>
@@ -938,7 +938,7 @@ class rawfile extends Component {
               </Grid>
             ) : null}
             {extreme ? (
-              <Grid>
+              <Grid spacing={2}>
                    <TableCell style={{ minWidth: 400 }} align="center">
                    <AppBar position="static">Negative Extreme </AppBar>
                    </TableCell>
@@ -950,7 +950,7 @@ class rawfile extends Component {
             ) : null}
 
             {antivaccine_tweets ? (
-              <Grid>
+              <Grid spacing={2}>
                   <TableCell style={{ minWidth: 400 }} align="center">
                   <AppBar position="static">Sentiment tweets </AppBar>
                   </TableCell>
@@ -962,7 +962,7 @@ class rawfile extends Component {
             ) : null}
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid spacing={2} item xs={5}>
             <Box sx={{ width: "100%" }}>
               <Paper sx={{ width: "100%", overflow: "hidden" }}>
                 <TableContainer sx={{ maxHeight: 1400 }}>
@@ -992,7 +992,7 @@ class rawfile extends Component {
               </Paper>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+          <Grid spacing={2} item xs={4}>
             <TableHead>
             <ThemeProvider theme={darkTheme1}>
               <TableCell style={{ minWidth: 500 }} align="center">
@@ -1008,7 +1008,7 @@ class rawfile extends Component {
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
-                    <AppBar position="static">Word Cloud{" "}</AppBar>
+                    <AppBar position="static"> Top Hashtags{" "}</AppBar>
                     
                   </TableCell>{" "}
                 </TableHead>
@@ -1039,7 +1039,7 @@ class rawfile extends Component {
                    <WordCloud data={keywords} /> : null} */}
 
             {this.state.tweet_sentiment ? (
-              <Grid>
+              <Grid spacing={2}>
                 {" "}
                 <TableHead>
                   {" "}
@@ -1063,7 +1063,7 @@ class rawfile extends Component {
             ) : null}
 
             {this.state.poi_data[0] ? (
-              <Grid>
+              <Grid spacing={2}>
                 {" "}
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
@@ -1084,7 +1084,7 @@ class rawfile extends Component {
               </Grid>
             ) : null}
             {this.state.tweet_type ? (
-              <Grid>
+              <Grid spacing={2}>
                 <TableHead>
                   <TableCell style={{ minWidth: 500 }} align="center">
                     {" "}
